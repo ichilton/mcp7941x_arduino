@@ -5,7 +5,7 @@
    November 2011
 */
 
-
+#include "Wire.h"
 #include "MCP7941x.h"
 
 // Create new instance of class:

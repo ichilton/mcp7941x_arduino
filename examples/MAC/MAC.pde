@@ -5,6 +5,7 @@
    November 2011
 */
 
+#include "Wire.h"
 #include "MCP7941x.h"
 
 static uint8_t mymac[6] = { 0,0,0,0,0,0 };
