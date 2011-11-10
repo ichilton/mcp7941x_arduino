@@ -1,0 +1,12 @@
+Arduino Library for using the MCP7941x IC.
+
+Only currently supports 24hr clock and doesn't do any validation.
+
+The MCP79411 is an I2C RTC chip which also includes 1K of EEPROM,
+64 bytes of SRAM and a Unique ID.
+
+There are 3 flavours of the MCP7941x, which differ in the Unique ID content:
+MCP79410 - Blank
+MCP79411 - EUI-48 Mac Address
+MCP79412 - EUI-64 Mac Address
+
