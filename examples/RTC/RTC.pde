@@ -9,7 +9,7 @@
 #include "MCP7941x.h"
 
 // Create new instance of class:
-MCP7941x rtc();
+MCP7941x rtc = MCP7941x();
 
 
 void displayDateTime(

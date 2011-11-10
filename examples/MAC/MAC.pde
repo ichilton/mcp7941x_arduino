@@ -10,7 +10,7 @@
 static uint8_t mymac[6] = { 0,0,0,0,0,0 };
 
 // Create new instance of class:
-MCP7941x rtc();
+MCP7941x rtc = MCP7941x();
 
 
 void setup()
