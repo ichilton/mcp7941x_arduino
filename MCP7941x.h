@@ -38,6 +38,8 @@
       void setDateTime ( byte second, byte minute, byte hour, byte dayOfWeek, byte dayOfMonth, byte month, byte year );
       void getDateTime ( byte *second, byte *minute, byte *hour, byte *dayOfWeek, byte *dayOfMonth, byte *month, byte *year );
 
+      void setSramByte ( byte location, byte data );
+      byte getSramByte ( byte location );
 
     private:
 

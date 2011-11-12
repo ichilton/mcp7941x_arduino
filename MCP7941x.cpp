@@ -146,3 +146,32 @@ void MCP7941x::getDateTime(
   *year       = bcdToDec(Wire.receive());         // 11111111
 }
 
+
+// Store byte of data in SRAM:
+void MCP7941x::setSramByte ( byte location, byte data )
+{
+  if (location >= 0x20 && location <= 0x5f)
+  {
+    Wire.beginTransmission(MCP7941x_RTC_I2C_ADDR);
+    Wire.send(location);
+    Wire.send(data);
+    Wire.endTransmission();
+  }
+}
+
+
+// Read byte of data from SRAM:
+byte MCP7941x::getSramByte ( byte location )
+{
+  if (location >= 0x20 && location <= 0x5f)
+  {
+    Wire.beginTransmission(MCP7941x_RTC_I2C_ADDR);
+    Wire.send(location);
+    Wire.endTransmission();
+
+    Wire.requestFrom(MCP7941x_RTC_I2C_ADDR, 1);
+
+    return Wire.receive();
+  }
+}
+
