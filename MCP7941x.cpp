@@ -88,7 +88,7 @@ void MCP7941x::writeMacAddress(byte *mac_address)
 }
 
 
-// Set the date/time, set to 24hr and start the clock:
+// Set the date/time, set to 24hr and enable the clock:
 // (assumes you're passing in valid numbers)
 void MCP7941x::setDateTime(
   byte second,        // 0-59
@@ -144,6 +144,48 @@ void MCP7941x::getDateTime(
   *dayOfMonth = bcdToDec(Wire.receive() & 0x3f);  // 00111111
   *month      = bcdToDec(Wire.receive() & 0x3f);  // 00111111
   *year       = bcdToDec(Wire.receive());         // 11111111
+}
+
+
+// Enable the clock without changing the date/time:
+void MCP7941x::enableClock()
+{
+  // Get the current seconds value as the enable/disable bit is in the same
+  // byte of memory as the seconds value:
+  Wire.beginTransmission(MCP7941x_RTC_I2C_ADDR);
+  Wire.send(RTC_LOCATION);
+  Wire.endTransmission();
+
+  Wire.requestFrom(MCP7941x_RTC_I2C_ADDR, 1);
+  
+  int second = bcdToDec(Wire.receive() & 0x7f);  // 01111111
+
+  // Start Clock:
+  Wire.beginTransmission(MCP7941x_RTC_I2C_ADDR);
+  Wire.send(RTC_LOCATION);
+  Wire.send(decToBcd(second) | 0x80);     // set seconds and enable clock (10000000)
+  Wire.endTransmission();
+}
+
+
+// Disable the clock without changing the date/time:
+void MCP7941x::disableClock()
+{
+  // Get the current seconds value as the enable/disable bit is in the same
+  // byte of memory as the seconds value:
+  Wire.beginTransmission(MCP7941x_RTC_I2C_ADDR);
+  Wire.send(RTC_LOCATION);
+  Wire.endTransmission();
+
+  Wire.requestFrom(MCP7941x_RTC_I2C_ADDR, 1);
+  
+  int second = bcdToDec(Wire.receive() & 0x7f);  // 01111111
+
+  // Start Clock:
+  Wire.beginTransmission(MCP7941x_RTC_I2C_ADDR);
+  Wire.send(RTC_LOCATION);
+  Wire.send(decToBcd(second));     // set seconds and disable clock (01111111)
+  Wire.endTransmission();
 }
 
 

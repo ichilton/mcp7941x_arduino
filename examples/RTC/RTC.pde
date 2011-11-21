@@ -106,6 +106,12 @@ void setup()
 
   byte second, minute, hour, dayOfWeek, dayOfMonth, month, year;
 
+  // Set the time?
+  boolean setTime = false;
+
+  // If you have a battery, you should only need to do the set once and after that,
+  // it should remember the date/time even when the power is off.
+
   // Set these to the values you want to set the date/time to:
   second = 0;
   minute = 59;
@@ -115,11 +121,16 @@ void setup()
   month = 11;
   year = 11;
 
-  // Uncomment the next line to set the date/time:
-  // rtc.setDateTime(second, minute, hour, dayOfWeek, dayOfMonth, month, year);
-  
-  // If you have a battery, you should only need to do the set once and after that,
-  // it should remember the date/time even when the power is off.
+  if (setTime == true)
+  {
+    // Set the Date/Time:
+    rtc.setDateTime(second, minute, hour, dayOfWeek, dayOfMonth, month, year);
+  }
+  else
+  {
+    // Enable (start) the clock without changing it:
+    rtc.enableClock();
+  }
 }
 
 
