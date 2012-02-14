@@ -142,7 +142,7 @@ void MCP7941x::getDateTime(
   *hour       = bcdToDec(Wire.receive() & 0x3f);  // 00111111
   *dayOfWeek  = bcdToDec(Wire.receive() & 0x07);  // 01111111
   *dayOfMonth = bcdToDec(Wire.receive() & 0x3f);  // 00111111
-  *month      = bcdToDec(Wire.receive() & 0x3f);  // 00111111
+  *month      = bcdToDec(Wire.receive() & 0x1f);  // 00011111
   *year       = bcdToDec(Wire.receive());         // 11111111
 }
 
