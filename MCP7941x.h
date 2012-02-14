@@ -39,6 +39,7 @@
       void getDateTime ( byte *second, byte *minute, byte *hour, byte *dayOfWeek, byte *dayOfMonth, byte *month, byte *year );
       void enableClock ();
       void disableClock ();
+      void enableBattery ();
 
       void setSramByte ( byte location, byte data );
       byte getSramByte ( byte location );

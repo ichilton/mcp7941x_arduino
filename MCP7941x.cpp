@@ -189,6 +189,28 @@ void MCP7941x::disableClock()
 }
 
 
+
+// Enable the battery:
+void MCP7941x::enableBattery()
+{
+  // Get the current seconds value as the enable/disable bit is in the same
+  // byte of memory as the seconds value:
+  Wire.beginTransmission(MCP7941x_RTC_I2C_ADDR);
+  Wire.send(RTC_LOCATION + 0x03);
+  Wire.endTransmission();
+
+  Wire.requestFrom(MCP7941x_RTC_I2C_ADDR, 1);
+  
+  int day = bcdToDec(Wire.receive() & 0x07);  // 00000111
+
+  // Start Clock:
+  Wire.beginTransmission(MCP7941x_RTC_I2C_ADDR);
+  Wire.send(RTC_LOCATION + 0x03);
+  Wire.send(decToBcd(day) | 0x08);     // set day and enable battery (00001000)
+  Wire.endTransmission();
+}
+
+
 // Store byte of data in SRAM:
 void MCP7941x::setSramByte ( byte location, byte data )
 {
