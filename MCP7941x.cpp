@@ -102,13 +102,13 @@ void MCP7941x::setDateTime(
   Wire.beginTransmission(MCP7941x_RTC_I2C_ADDR);
   Wire.send(RTC_LOCATION);
   
-  Wire.send(decToBcd(second) & 0x7f);     // set seconds and disable clock (01111111)
-  Wire.send(decToBcd(minute) & 0x7f);     // set minutes (01111111)
-  Wire.send(decToBcd(hour) & 0x3f);       // set hours and to 24hr clock (00111111)
-  Wire.send(decToBcd(dayOfWeek) & 0x0f);  // set the day and enable battery backup (00001111)
-  Wire.send(decToBcd(dayOfMonth) & 0x3f); // set the date in month (00111111)
-  Wire.send(decToBcd(month) & 0x1f);      // set the month (00011111)
-  Wire.send(decToBcd(year));              // set the year (11111111)
+  Wire.send(decToBcd(second) & 0x7f);              // set seconds and disable clock (01111111)
+  Wire.send(decToBcd(minute) & 0x7f);              // set minutes (01111111)
+  Wire.send(decToBcd(hour) & 0x3f);                // set hours and to 24hr clock (00111111)
+  Wire.send(0x08 | (decToBcd(dayOfWeek) & 0x07));  // set the day and enable battery backup (00000111)|(00001000)
+  Wire.send(decToBcd(dayOfMonth) & 0x3f);          // set the date in month (00111111)
+  Wire.send(decToBcd(month) & 0x1f);               // set the month (00011111)
+  Wire.send(decToBcd(year));                       // set the year (11111111)
   
   Wire.endTransmission();
 
